@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 
 
-
-
 // React Element(JSX) and React component and component composition examples 
 // const heading = <div>
 //     <h1>HEllo</h1>
