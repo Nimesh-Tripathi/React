@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { useEffect ,useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -31,19 +31,19 @@ import { useEffect ,useState } from "react";
 
 
 const Header = () => {
-    return(
-        <nav className="navbar">
-        <div className="logo">
-            <img src="https://png.pngtree.com/png-vector/20221231/ourmid/pngtree-food-delivery-logo-template-design-sign-menu-vector-png-image_43664212.jpg"></img>
-        </div>
-        <ul className="nav-links">
-            <li>Home</li>
-            <li>About</li>
-            <li>Services</li>
-            <li>Contact</li>
-        </ul>
-    </nav>    
-    )
+  return (
+    <nav className="navbar">
+      <div className="logo">
+        <img src="https://png.pngtree.com/png-vector/20221231/ourmid/pngtree-food-delivery-logo-template-design-sign-menu-vector-png-image_43664212.jpg"></img>
+      </div>
+      <ul className="nav-links">
+        <li>Home</li>
+        <li>About</li>
+        <li>Services</li>
+        <li>Contact</li>
+      </ul>
+    </nav>
+  )
 };
 
 // const Body = () => {
@@ -131,121 +131,129 @@ const Header = () => {
 
 const Body = () => {
 
-  const [List,setList] = useState([]);
+  const [List, setList] = useState([]);
 
- 
-  
+
+
   useEffect(() => {
     FetchData();
-  },[])
+  }, [])
 
-  const FetchData = async() => {
+  const FetchData = async () => {
     const data = await fetch("https://dummyjson.com/carts")
 
-    const JSON =  await data.json();
+    const JSON = await data.json();
 
     // console.log(JSON);
 
     setList(JSON.carts[0].products)
-    
+
   }
 
   console.log(List);
 
   // List.map((card) => console.log(card.id))
-  
 
+  if (List.length == 0) {
     return (
-
-      <div className="body-container">
-      
-        {/* Search Bar */}
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search..."
-          />
-        </div>
-  
-        {/* Card Container */}
-        <div className="card-container">
-          {List.map((card) => (
-            <div className="card" key={card.id}>
-              <h3>Card {card.title}</h3>
-              <p>This is card number {card.price}</p>
-            </div>
-          ))}
-        </div>
-
-       </div>
+      <div className="loading-container">
+        <div className="spinner"></div>
+      </div>
+    )
+  }
 
 
-    );
-  };
+  return (
 
-  const Footer = () => {
-    return (
-      <footer
-        style={{
-          backgroundColor: "#333",
-          color: "white",
-          padding: "20px 0",
-          textAlign: "center",
-        }}
-      >
-        {/* Footer Links */}
-        <div>
-          <a href="#" style={linkStyle}>
-            Home
-          </a>
-          <a href="#" style={linkStyle}>
-            About
-          </a>
-          <a href="#" style={linkStyle}>
-            Contact
-          </a>
-        </div>
-  
-        {/* Social Media Icons */}
-        <div style={{ margin: "20px 0" }}>
-          <a href="#" style={linkStyle}>
-            Facebook
-          </a>
-          <a href="#" style={linkStyle}>
-            Twitter
-          </a>
-          <a href="#" style={linkStyle}>
-            Instagram
-          </a>
-        </div>
-  
-        {/* Copyright Info */}
-        <div>
-          <p style={{ margin: "0" }}>
-            &copy; {new Date().getFullYear()} My Website. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    );
-  };
-  
-  const linkStyle = {
-    margin: "0 10px",
-    color: "white",
-    textDecoration: "none",
-    fontSize: "16px",
-  };
+    <div className="body-container">
+
+      {/* Search Bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search..."
+        />
+      </div>
+
+      {/* Card Container */}
+      <div className="card-container">
+        {List.map((card) => (
+          <div className="card" key={card.id}>
+            <h3>Card {card.title}</h3>
+            <p>This is card number {card.price}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer
+      style={{
+        backgroundColor: "#333",
+        color: "white",
+        padding: "20px 0",
+        textAlign: "center",
+      }}
+    >
+      {/* Footer Links */}
+      <div>
+        <a href="#" style={linkStyle}>
+          Home
+        </a>
+        <a href="#" style={linkStyle}>
+          About
+        </a>
+        <a href="#" style={linkStyle}>
+          Contact
+        </a>
+      </div>
+
+      {/* Social Media Icons */}
+      <div style={{ margin: "20px 0" }}>
+        <a href="#" style={linkStyle}>
+          Facebook
+        </a>
+        <a href="#" style={linkStyle}>
+          Twitter
+        </a>
+        <a href="#" style={linkStyle}>
+          Instagram
+        </a>
+      </div>
+
+      {/* Copyright Info */}
+      <div>
+        <p style={{ margin: "0" }}>
+          &copy; {new Date().getFullYear()} My Website. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+};
+
+const linkStyle = {
+  margin: "0 10px",
+  color: "white",
+  textDecoration: "none",
+  fontSize: "16px",
+};
 
 
 
 const AppLayout = () => {
-    return (
-        <div className="App">
-            <Header></Header>
-            <Body></Body>
-            <Footer></Footer>
-        </div>
-    )
+  return (
+    <div className="App">
+      <Header></Header>
+      <Body></Body>
+      <Footer></Footer>
+    </div>
+  )
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
