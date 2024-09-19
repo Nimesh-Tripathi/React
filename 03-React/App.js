@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { useEffect ,useState } from "react";
+
+
 
 
 // React Element(JSX) and React component and component composition examples 
@@ -42,7 +45,6 @@ const Header = () => {
     </nav>    
     )
 };
-
 
 // const Body = () => {
 //   return (
@@ -129,8 +131,34 @@ const Header = () => {
 
 const Body = () => {
 
+  const [List,setList] = useState([]);
+
+ 
+  
+  useEffect(() => {
+    FetchData();
+  },[])
+
+  const FetchData = async() => {
+    const data = await fetch("https://dummyjson.com/carts")
+
+    const JSON =  await data.json();
+
+    // console.log(JSON);
+
+    setList(JSON.carts[0].products)
+    
+  }
+
+  console.log(List);
+
+  // List.map((card) => console.log(card.id))
+  
+
     return (
+
       <div className="body-container">
+      
         {/* Search Bar */}
         <div className="search-bar">
           <input
@@ -141,14 +169,17 @@ const Body = () => {
   
         {/* Card Container */}
         <div className="card-container">
-          {[1, 2, 3, 4].map((card) => (
-            <div className="card" key={card}>
-              <h3>Card {card}</h3>
-              <p>This is card number {card}</p>
+          {List.map((card) => (
+            <div className="card" key={card.id}>
+              <h3>Card {card.title}</h3>
+              <p>This is card number {card.price}</p>
             </div>
           ))}
         </div>
-      </div>
+
+       </div>
+
+
     );
   };
 
